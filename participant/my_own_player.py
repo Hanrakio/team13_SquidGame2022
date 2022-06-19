@@ -2,14 +2,25 @@ import random
 from . import participant as part
 import copy
 
+marble_count = []
+
 
 class my_own_player(part.Participant):
     def __init__(self):
         super().__init__('name of your team', 'team num')
+        global marble_count
+        global bet_list
+        global dec_list
+        global co
+        global do
+        marble_count = []
+        bet_list = [1, 2]
+        dec_list = [True, False]
+        co = 0
+        do = 0
         # you can change everything in this code file!!
         # also, you can define your own variables here or in the overriding method
         # Any modifications are possible if you follows the rules of Squid Game
-
 
     # ====================================================================== for initializing your player every round
     def initialize_player(self, string):
@@ -17,34 +28,47 @@ class my_own_player(part.Participant):
         # this method must contain 'self.initialize_params()' which is for initializing some essential variables
         # you can initialize what you define
         self.initialize_params()
-    # ====================================================================== for initializing your player every round
 
+    # ====================================================================== for initializing your player every round
 
     # ================================================================================= for marble game
     def bet_marbles_strategy(self, playground_marbles):
+        global my_current_marbles
+        my_current_marbles = playground_marbles.get_num_of_my_marbles(self)
+        marble_count.append(my_current_marbles)
+        print(marble_count)
+        co = 0
+        if len(marble_count) <= 1:
+            return 1
+        else:
+            max_marble = max(marble_count)
+            if marble_count[-1] >= max_marble:
+                return bet_list[co % 2]
+            else:
+                co += 1
+                return bet_list[(co) % 2]
         # you can override this method in this sub-class
         # you can refer to an object of 'marbles', named as 'playground_marbles'
         # the return should be the number of marbles bet (> 0)!
-        my_current_marbles = playground_marbles.get_num_of_my_marbles(self)
-        com_dec_list=[] #컴퓨터 추측 결과(홀(True)짝(False))를 모은 데이터
-        if not com_dec_list:  # list가 비어있을 때(처음 상태)
-             return 1
-        ratio = com_dec_list.count(True) / len(com_dec_list) #list 중 컴퓨터가 홀수라 예측한 비율
-        if ratio > 0.5 and my_current_marbles >=2: #홀수 예측 비율이 더 높고 현재 구슬이 2개 이상이면
-            return 2 #2 반환
-        else: return 1
 
     def declare_statement_strategy(self, playground_marbles):
         # you can override this method in this sub-class
         # you can refer to an object of 'marbles', named as 'playground_marbles'
         # the return should be True or False!
-        com_bet_list = []  # 컴퓨터 베팅결과를 모은 데이터(홀수는 True, 짝수는 False로 변환해서 저장)
-        if not com_bet_list:  # list가 비어있을 때(처음 상태)
-             return bool(random.randint(0, 1)) #무작위로 선택
-        ratio = com_bet_list.count(True) / len(com_bet_list) #컴퓨터가 홀수개를 베팅한 비율
-        if ratio > 0.5: return True #모비율이 0.5보다 클 때 무조건 홀수라 답하는 게 유리(표본비율X)
-        elif ratio == 0.5: return bool(random.randint(0, 1))
-        else: return False
+
+        # answer = bool(random.randint(0, 1))
+        do = 0
+        if len(marble_count) <= 1:
+            return True
+        else:
+            max_marble = max(marble_count)
+            if marble_count[-1] >= max_marble:
+                answer = dec_list[do % 2]
+            else:
+                do += 1
+                answer = dec_list[(do) % 2]
+
+        return self.set_statement(answer)
     # ================================================================================= for marble game
 
 
