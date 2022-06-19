@@ -81,21 +81,21 @@ class my_own_player(part.Participant):
             self.temp_list = copy.deepcopy(playground_glasses._players_steps)  # 상대방것도 복사
         length = len(self.temp_list)
         if self.previous_player != 'None' and self.temp_list != []:
-            if self.position < length - 1:  # 카피 한 것보다 앞에 있으면
-                print(self.temp_list)
+            if self.position < length - 1:  #우리 player의 위치가 length보다 뒤(결승점에서 먼 지점)에 있을 때
+                print(self.temp_list)   #기억해 둔 temp_list를 출력해서
                 # print('chk1')
-                return self.temp_list[self.position]  # 내가 갔던 곳으로
+                return self.temp_list[self.position]  # 내가 갔던 경로대로 따라감
             else:
-                if self.position == length - 1:
+                if self.position == length - 1: #우리 player의 위치가 length와 같을 때
                     # print('chk2')
                     if self.temp_list[self.position] == 0:
                         return 1
                     else:
                         return 0
-                else:
+                else:   #우리 player의 위치가 length보다 앞(결승점에서 가까운 지점)에 있을 때
                     # print('chk3')
                     return random.randint(0, 1)
-        return random.randint(0, 1)
+        return random.randint(0, 1) #랜덤으로 좌/우 중에 선택하여 전진
     # ================================================================================= for glass_stepping_stones game
 
 
