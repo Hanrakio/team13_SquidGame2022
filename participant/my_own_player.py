@@ -25,9 +25,19 @@ class my_own_player(part.Participant):
         # you can override this method in this sub-class
         # you can refer to an object of 'marbles', named as 'playground_marbles'
         # the return should be the number of marbles bet (> 0)!
+        global my_current_marbles
         my_current_marbles = playground_marbles.get_num_of_my_marbles(self)
-        return random.randint(playground_marbles.MIN_HOLDING, my_current_marbles)
-
+        marble_count.append(my_current_marbles)
+        print(marble_count)
+        if len(marble_count) >= 10:
+            for i in range(len(marble_count)):
+                adsf = 1
+            if adsf / len(marble_count) >= 50:
+                return 1
+            else:
+                return 2
+        else:
+            return 1
     def declare_statement_strategy(self, playground_marbles):
         # you can override this method in this sub-class
         # you can refer to an object of 'marbles', named as 'playground_marbles'
