@@ -36,7 +36,6 @@ class my_own_player(part.Participant):
         global my_current_marbles
         my_current_marbles = playground_marbles.get_num_of_my_marbles(self)
         marble_count.append(my_current_marbles)
-        print(marble_count)
         co = 0
         if len(marble_count) <= 1:
             return 1
@@ -111,7 +110,7 @@ class my_own_player(part.Participant):
         # type4 corresponds a person with strong power
         # the return should be a tuple with size of 4, and the sum of the elements should be 10
         # only for computer, it is allowed to set 12 members
-        return (0, 0, 5, 5)
+        return (0, 0, 5, 5) #이 조합을 default로 다양한 조합 시뮬레이션
 
     def act_tugging_strategy(self, playground_tug_of_war):
         # you can override this method in this sub-class
