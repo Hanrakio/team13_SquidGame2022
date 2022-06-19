@@ -1,15 +1,18 @@
 import random
 from . import participant as part
 import copy
+from participant.computer import computer as cp
 
 
 class my_own_player(part.Participant):
     def __init__(self):
         super().__init__('name of your team', 'team num')
+        global marble_count
+        marble_count = []
+
         # you can change everything in this code file!!
         # also, you can define your own variables here or in the overriding method
         # Any modifications are possible if you follows the rules of Squid Game
-
 
     # ====================================================================== for initializing your player every round
     def initialize_player(self, string):
@@ -17,8 +20,8 @@ class my_own_player(part.Participant):
         # this method must contain 'self.initialize_params()' which is for initializing some essential variables
         # you can initialize what you define
         self.initialize_params()
-    # ====================================================================== for initializing your player every round
 
+    # ====================================================================== for initializing your player every round
 
     # ================================================================================= for marble game
     def bet_marbles_strategy(self, playground_marbles):
@@ -45,7 +48,10 @@ class my_own_player(part.Participant):
         answer = random.sample(ali, 1)[0]
         self.__statement = answer
         return answer
-    #df
+        # you can override this method in this sub-class
+        # you can refer to an object of 'marbles', named as 'playground_marbles'
+        # the return should be True or False!
+
     # ================================================================================= for marble game
 
 
