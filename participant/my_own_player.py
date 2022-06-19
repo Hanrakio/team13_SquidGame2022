@@ -45,6 +45,7 @@ class my_own_player(part.Participant):
         answer = random.sample(ali, 1)[0]
         self.__statement = answer
         return answer
+    #df
     # ================================================================================= for marble game
 
 
