@@ -1,15 +1,23 @@
 import random
 from . import participant as part
 import copy
-from participant.computer import computer as cp
+
+marble_count = []
 
 
 class my_own_player(part.Participant):
     def __init__(self):
         super().__init__('name of your team', 'team num')
         global marble_count
+        global bet_list
+        global dec_list
+        global co
+        global do
         marble_count = []
-
+        bet_list = [1, 2]
+        dec_list = [True, False]
+        co = 0
+        do = 0
         # you can change everything in this code file!!
         # also, you can define your own variables here or in the overriding method
         # Any modifications are possible if you follows the rules of Squid Game
@@ -25,33 +33,40 @@ class my_own_player(part.Participant):
 
     # ================================================================================= for marble game
     def bet_marbles_strategy(self, playground_marbles):
-        # you can override this method in this sub-class
-        # you can refer to an object of 'marbles', named as 'playground_marbles'
-        # the return should be the number of marbles bet (> 0)!
         global my_current_marbles
         my_current_marbles = playground_marbles.get_num_of_my_marbles(self)
         marble_count.append(my_current_marbles)
         print(marble_count)
-        adsf = 0
-        if len(marble_count) >= 10:
-            for i in range(len(marble_count)):
-                adsf += marble_count[i]
-            if adsf / len(marble_count) >= 50:
-                return 1
-            else:
-                return 2
-        else:
+        co = 0
+        if len(marble_count) <= 1:
             return 1
+        else:
+            if marble_count[-1] >= 50:
+                return bet_list[co % 2]
+            else:
+                co += 1
+                return bet_list[(co) % 2]
+        # you can override this method in this sub-class
+        # you can refer to an object of 'marbles', named as 'playground_marbles'
+        # the return should be the number of marbles bet (> 0)!
 
     def declare_statement_strategy(self, playground_marbles):
-        ali = [True, False]
-        answer = random.sample(ali, 1)[0]
-        self.__statement = answer
-        return answer
         # you can override this method in this sub-class
         # you can refer to an object of 'marbles', named as 'playground_marbles'
         # the return should be True or False!
 
+        # answer = bool(random.randint(0, 1))
+        do = 0
+        if len(marble_count) <= 1:
+            return True
+        else:
+            if marble_count[-1] >= 50:
+                answer = dec_list[do % 2]
+            else:
+                do += 1
+                answer = dec_list[(do) % 2]
+
+        return self.set_statement(answer)
     # ================================================================================= for marble game
 
 
