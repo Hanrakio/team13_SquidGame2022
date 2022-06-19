@@ -38,7 +38,7 @@ class my_own_player(part.Participant):
 
 
     # ================================================================================= for glass_stepping_stones game
-    #징검다리 게임 전략
+    #징검다리 게임 필승 전략
     def step_toward_goal_strategy(self, playground_glasses):
         # you can override this method in this sub-class
         # you can refer to an object of 'glass_stepping_stones', named as 'playground_glasses'
