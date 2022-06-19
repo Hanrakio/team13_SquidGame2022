@@ -36,7 +36,6 @@ class my_own_player(part.Participant):
         return self.set_statement(answer)
     # ================================================================================= for marble game
 
-
     # ================================================================================= for glass_stepping_stones game
     def step_toward_goal_strategy(self, playground_glasses):
         # you can override this method in this sub-class
@@ -46,7 +45,7 @@ class my_own_player(part.Participant):
             self.temp_list = copy.deepcopy(playground_glasses._players_steps)  # 상대방것도 복사
         length = len(self.temp_list)
         if self.previous_player != 'None' and self.temp_list != []:
-            if self.position < length - 1:  # 카피 한 것보다 앞에 있으면
+            if self.position < length - 1:  # 자신의 위치가 기억해둔 리스트보다 이전일 때
                 print(self.temp_list)
                 # print('chk1')
                 return self.temp_list[self.position]  # 내가 갔던 곳으로
@@ -57,12 +56,11 @@ class my_own_player(part.Participant):
                         return 1
                     else:
                         return 0
-                else:
+                else:  # 자신의 위치가 기억해둔 리스트를 넘었을 때
                     # print('chk3')
                     return random.randint(0, 1)
         return random.randint(0, 1)
     # ================================================================================= for glass_stepping_stones game
-
 
     # ================================================================================= for tug_of_war game
     def gathering_members(self):
